@@ -1,14 +1,18 @@
 package org.example.auth_system.domain.role.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Getter;
+import jakarta.persistence.*;
+import lombok.*;
+import org.example.auth_system.domain.employee.mapping.EmployeeRoleMapping;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 public class Role {
 
     @Id
@@ -17,4 +21,7 @@ public class Role {
 
     @Schema(example = "인사팀", description = "권한 이름")
     private String name;
+
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<EmployeeRoleMapping> employeeRoles = new HashSet<>();
 }
