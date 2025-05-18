@@ -1,5 +1,6 @@
 package org.example.auth_system.domain.department.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.example.auth_system.domain.department.entity.Department;
@@ -19,6 +20,7 @@ public class DepartmentController {
 
     private final DepartmentService departmentService;
 
+    @Operation(description = "전사 부서 조회")
     @GetMapping(value = "/departments",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Department>> findAllEmployee(){
