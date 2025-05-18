@@ -19,9 +19,14 @@ public class Employee {
     private Long id;
 
     private String firstName;
+
     private String lastName;
+
     private Long departmentId;
 
+    private String kakaoNickName;
+
+    @Builder.Default
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<EmployeeRoleMapping> employeeRoles = new HashSet<>();
 

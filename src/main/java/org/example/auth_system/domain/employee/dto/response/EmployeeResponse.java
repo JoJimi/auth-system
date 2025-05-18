@@ -10,8 +10,8 @@ public record EmployeeResponse(
         String firstName,
         String lastName,
         Long departmentId,
-        List<Long> roleIds
-) {
+        String kakaoNickName,
+        List<Long> roleIds) {
     public static EmployeeResponse from(Employee employee) {
         List<Long> roleIds = employee.getEmployeeRoles().stream()
                 .map(mapping -> mapping.getRole().getId())
@@ -22,6 +22,7 @@ public record EmployeeResponse(
                 employee.getFirstName(),
                 employee.getLastName(),
                 employee.getDepartmentId(),
+                employee.getKakaoNickName(),
                 roleIds
         );
     }
