@@ -1,5 +1,6 @@
 package org.example.auth_system.domain.employee.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.example.auth_system.domain.employee.entity.Employee;
 import org.example.auth_system.domain.employee.service.EmployeeService;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name="Basics", description = "기본 관리 API")
 public class EmployeeController {
 
     private final EmployeeService employeeService;

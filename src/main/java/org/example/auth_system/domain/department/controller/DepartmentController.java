@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name="Basics", description = "기본 관리 API")
 public class DepartmentController {
 
     private final DepartmentService departmentService;
