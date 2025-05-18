@@ -10,3 +10,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 1234
+
+kakao:
+  client_id: 68d61abcec280fba71c54fc4b62f2390
+  redirect_uri: http://localhost:8080/kakao/callback
