@@ -19,7 +19,6 @@ public class Employee {
 
     private Long departmentId;
 
-
     @ManyToMany
     @JoinTable(
             name = "employee_role_mapping",
