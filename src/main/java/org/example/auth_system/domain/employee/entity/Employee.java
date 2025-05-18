@@ -1,13 +1,19 @@
 package org.example.auth_system.domain.employee.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.example.auth_system.domain.role.entity.Role;
 
 import java.util.Set;
 
 @Entity
 @Getter
+@Builder
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class Employee {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -7,6 +7,8 @@ import org.example.auth_system.domain.employee.service.EmployeeService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -18,10 +20,16 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
-    @GetMapping(value = "/employees",
-    produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/employees", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Employee>> findAllEmployee(){
         return ResponseEntity.ok(employeeService.listEmployees());
     }
 
+    @PostMapping(value = "/employees", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Employee> create(@RequestParam String firstName,
+                                           @RequestParam String lastName,
+                                           @RequestParam Long departmentId){
+        Employee employee = employeeService.createEmployee(firstName, lastName, departmentId);
+        return ResponseEntity.ok(employee);
+    }
 }
