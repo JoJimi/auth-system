@@ -2,6 +2,7 @@ package org.example.auth_system.domain.employee.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.example.auth_system.domain.employee.dto.response.EmployeeResponse;
 import org.example.auth_system.domain.employee.entity.Employee;
 import org.example.auth_system.domain.employee.service.EmployeeService;
 import org.springframework.http.MediaType;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -21,15 +23,17 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @GetMapping(value = "/employees", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Employee>> findAllEmployee(){
+    public ResponseEntity<List<EmployeeResponse>> findAllEmployee(){
         return ResponseEntity.ok(employeeService.listEmployees());
     }
 
     @PostMapping(value = "/employees", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Employee> create(@RequestParam String firstName,
+    public ResponseEntity<EmployeeResponse> create(@RequestParam String firstName,
                                            @RequestParam String lastName,
                                            @RequestParam Long departmentId){
-        Employee employee = employeeService.createEmployee(firstName, lastName, departmentId);
-        return ResponseEntity.ok(employee);
+        EmployeeResponse dto = employeeService.createEmployee(firstName, lastName, departmentId);
+        return ResponseEntity
+                .created(URI.create("/employees/" + dto.id()))
+                .body(dto);
     }
 }
