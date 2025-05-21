@@ -2,6 +2,7 @@ package org.example.auth_system.global.config;
 
 import lombok.RequiredArgsConstructor;
 import org.example.auth_system.domain.employee.repository.EmployeeRepository;
+import org.example.auth_system.global.security.custom.CustomAccessDeniedHandler;
 import org.example.auth_system.global.security.custom.CustomAuthenticationEntryPoint;
 import org.example.auth_system.global.security.filter.JwtAuthFilter;
 import org.example.auth_system.global.service.KakaoService;
@@ -23,6 +24,7 @@ public class SecurityConfig {
     private final KakaoService kakaoService;
     private final EmployeeRepository employeeRepository;
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+    private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
     private static final String[] AUTH_ALLOWLIST = {
             "/swagger-ui/**",
@@ -41,8 +43,13 @@ public class SecurityConfig {
                 .addFilterBefore(new JwtAuthFilter(kakaoService, employeeRepository), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(AUTH_ALLOWLIST).permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/employees/**").hasRole("USER")
+                        .requestMatchers("/departments/**").hasRole("USER")
                         .anyRequest().authenticated())
-                .exceptionHandling(handling -> handling.authenticationEntryPoint(customAuthenticationEntryPoint))
+                .exceptionHandling(handling -> handling
+                        .authenticationEntryPoint(customAuthenticationEntryPoint)
+                        .accessDeniedHandler(customAccessDeniedHandler))
                 .build();
 
     }

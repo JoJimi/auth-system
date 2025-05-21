@@ -27,7 +27,7 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.listEmployees());
     }
 
-    @PostMapping(value = "/employees", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/admin/employees", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EmployeeResponse> create(@RequestParam String firstName,
                                            @RequestParam String lastName,
                                            @RequestParam Long departmentId,
