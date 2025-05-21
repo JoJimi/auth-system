@@ -32,7 +32,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
             if(employeeRepository.existsByKakaoNickName(nickName)){
                 Employee employee = employeeRepository.findByKakaoNickName(nickName);
-                Authentication authentication = new TestingAuthenticationToken(employee.getFirstName(), "password", "ROLE_TEST");
+                Authentication authentication = new TestingAuthenticationToken(employee.getFirstName(), "password", "ROLE_USER");
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
