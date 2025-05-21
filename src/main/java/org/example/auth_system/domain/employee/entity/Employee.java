@@ -54,5 +54,11 @@ public class Employee {
                         mapping.getRole().equals(role)
         );
     }
+
+    public boolean isHR() {
+        return this.employeeRoles.stream()
+                .map(EmployeeRoleMapping::getRole)
+                .anyMatch(role -> "인사팀".equals(role.getName()));
+    }
 }
 
