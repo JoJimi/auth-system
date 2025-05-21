@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import org.example.auth_system.domain.employee.entity.Employee;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 public class Department {
@@ -18,8 +21,7 @@ public class Department {
     private String deptName;
 
     @Schema(example = "123456", description = "담당 조직장 임직원 ID")
-    @OneToOne
-    @JoinColumn(name = "team_lead_id", referencedColumnName = "id")
-    private Employee teamLead;
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Employee> employees = new ArrayList<>();
 
 }

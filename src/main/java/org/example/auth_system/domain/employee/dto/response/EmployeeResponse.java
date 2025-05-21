@@ -21,7 +21,7 @@ public record EmployeeResponse(
                 employee.getId(),
                 employee.getFirstName(),
                 employee.getLastName(),
-                employee.getDepartmentId(),
+                employee.getDepartment().getId(),
                 employee.getKakaoNickName(),
                 roleIds
         );

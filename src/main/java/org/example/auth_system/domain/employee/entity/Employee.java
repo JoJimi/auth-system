@@ -2,6 +2,7 @@ package org.example.auth_system.domain.employee.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.auth_system.domain.department.entity.Department;
 import org.example.auth_system.domain.employee.mapping.EmployeeRoleMapping;
 import org.example.auth_system.domain.role.entity.Role;
 
@@ -22,7 +23,9 @@ public class Employee {
 
     private String lastName;
 
-    private Long departmentId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "department_id", nullable = false)
+    private Department department;
 
     private String kakaoNickName;
 
