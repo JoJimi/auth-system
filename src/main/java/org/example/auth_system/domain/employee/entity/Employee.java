@@ -7,6 +7,7 @@ import org.example.auth_system.domain.employee.mapping.EmployeeRoleMapping;
 import org.example.auth_system.domain.role.entity.Role;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -30,7 +31,7 @@ public class Employee {
     private String kakaoNickName;
 
     @Builder.Default
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<EmployeeRoleMapping> employeeRoles = new HashSet<>();
 
     // 편의 메서드: Role 추가
@@ -55,10 +56,15 @@ public class Employee {
         );
     }
 
-    public boolean isHR() {
-        return this.employeeRoles.stream()
+    public static boolean isHR(Employee employee) {
+        if (employee == null || employee.getEmployeeRoles() == null) {
+            return false;
+        }
+        return employee.getEmployeeRoles().stream()
                 .map(EmployeeRoleMapping::getRole)
-                .anyMatch(role -> "인사팀".equals(role.getName()));
+                .filter(Objects::nonNull)
+                .map(Role::getName)
+                .anyMatch("인사팀"::equals);
     }
 }
 
