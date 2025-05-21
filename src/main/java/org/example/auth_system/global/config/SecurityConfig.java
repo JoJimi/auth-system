@@ -2,6 +2,7 @@ package org.example.auth_system.global.config;
 
 import lombok.RequiredArgsConstructor;
 import org.example.auth_system.domain.employee.repository.EmployeeRepository;
+import org.example.auth_system.global.security.custom.CustomAuthenticationEntryPoint;
 import org.example.auth_system.global.security.filter.JwtAuthFilter;
 import org.example.auth_system.global.service.KakaoService;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +22,7 @@ public class SecurityConfig {
 
     private final KakaoService kakaoService;
     private final EmployeeRepository employeeRepository;
+    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
     private static final String[] AUTH_ALLOWLIST = {
             "/swagger-ui/**",
@@ -40,6 +42,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(AUTH_ALLOWLIST).permitAll()
                         .anyRequest().authenticated())
+                .exceptionHandling(handling -> handling.authenticationEntryPoint(customAuthenticationEntryPoint))
                 .build();
 
     }
