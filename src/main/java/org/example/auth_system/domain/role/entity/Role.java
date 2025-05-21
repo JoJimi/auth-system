@@ -22,6 +22,7 @@ public class Role {
     @Schema(example = "인사팀", description = "권한 이름")
     private String name;
 
+    @Builder.Default
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<EmployeeRoleMapping> employeeRoles = new HashSet<>();
 }
