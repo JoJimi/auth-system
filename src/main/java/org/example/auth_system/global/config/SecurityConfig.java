@@ -1,6 +1,9 @@
 package org.example.auth_system.global.config;
 
+import lombok.RequiredArgsConstructor;
+import org.example.auth_system.domain.employee.repository.EmployeeRepository;
 import org.example.auth_system.global.security.filter.JwtAuthFilter;
+import org.example.auth_system.global.service.KakaoService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -13,7 +16,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final KakaoService kakaoService;
+    private final EmployeeRepository employeeRepository;
 
     private static final String[] AUTH_ALLOWLIST = {
             "/swagger-ui/**",
@@ -29,7 +36,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .formLogin(form -> form.disable())
-                .addFilterBefore(new JwtAuthFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtAuthFilter(kakaoService, employeeRepository), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(AUTH_ALLOWLIST).permitAll()
                         .anyRequest().authenticated())

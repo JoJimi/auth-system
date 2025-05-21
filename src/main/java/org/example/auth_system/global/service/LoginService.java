@@ -21,8 +21,8 @@ public class LoginService {
 
     public ResponseEntity getKakaoUser(String token){
         KakaoUserResponse dto = kakaoService.getUserFromKakao(token);
-
         String nickName = dto.getKakaoAccount().getProfile().getNickname();
+
         if(employeeRepository.existsByKakaoNickName(nickName)){
             return new ResponseEntity("환영합니다. " + nickName, HttpStatus.OK);
         }
