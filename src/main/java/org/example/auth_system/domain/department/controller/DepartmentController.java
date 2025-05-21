@@ -3,6 +3,7 @@ package org.example.auth_system.domain.department.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.example.auth_system.domain.department.dto.response.DepartmentResponse;
 import org.example.auth_system.domain.department.entity.Department;
 import org.example.auth_system.domain.department.service.DepartmentService;
 import org.example.auth_system.domain.employee.entity.Employee;
@@ -23,8 +24,9 @@ public class DepartmentController {
     @Operation(description = "전사 부서 조회")
     @GetMapping(value = "/departments",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Department>> findAllEmployee(){
-        return ResponseEntity.ok(departmentService.listDepartments());
+    public ResponseEntity<List<DepartmentResponse>> findAllEmployee(){
+        List<DepartmentResponse> departments = departmentService.listDepartments();
+        return ResponseEntity.ok(departments);
     }
 
 }
