@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import org.example.auth_system.domain.api.entity.Api;
 import org.example.auth_system.domain.employee.entity.Employee;
+import org.example.auth_system.domain.role.entity.AppRole;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,5 +24,8 @@ public class App {
 
     @OneToMany(mappedBy = "app", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Api> apis = new ArrayList<>();
+
+    @OneToMany(mappedBy = "app", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AppRole> appRoles = new ArrayList<>();
 
 }
