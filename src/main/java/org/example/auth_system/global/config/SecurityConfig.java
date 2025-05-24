@@ -31,7 +31,8 @@ public class SecurityConfig {
             "/v3/**",
             "/login/**",
             "/images/**",
-            "/kakao/**"
+            "/kakao/**",
+            "/app/token/**"
     };
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{

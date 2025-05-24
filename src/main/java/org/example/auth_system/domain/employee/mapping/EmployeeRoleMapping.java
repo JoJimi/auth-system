@@ -23,6 +23,6 @@ public class EmployeeRoleMapping {
     private Employee employee;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "role_id", nullable = false)
+    @JoinColumn(name = "employee_role_id", nullable = false)
     private EmployeeRole employeeRole;
 }

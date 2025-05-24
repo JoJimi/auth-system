@@ -4,8 +4,11 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.example.auth_system.domain.app.entity.App;
 import org.example.auth_system.domain.employee.entity.Employee;
 import org.example.auth_system.domain.employee.mapping.EmployeeRoleMapping;
+import org.example.auth_system.domain.role.dto.response.AppRoleResponse;
+import org.example.auth_system.domain.role.entity.AppRole;
 import org.example.auth_system.domain.role.entity.EmployeeRole;
 
 import java.security.Key;
@@ -19,7 +22,26 @@ public class JwtUtil {
     private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     private static final long expirationTimeInMillis = 1000 * 60 * 60;
 
-    public static String createToken(Employee employee){
+    public static String createAppToken(App app){
+        Date now = new Date();
+        Date expireAt = new Date(now.getTime() + expirationTimeInMillis);
+
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("type", "app");
+
+        claims.put("roles", app.getAppRoles().stream().map(AppRoleResponse::from).collect(Collectors.toList()));
+
+        return Jwts.builder()
+                .setSubject(String.valueOf(app.getId()))
+                .claims(claims)
+                .setIssuedAt(now)
+                .setExpiration(expireAt)
+                .signWith(SECRET_KEY)
+                .compact();
+
+    }
+
+    public static String createUserToken(Employee employee){
 
         Date now = new Date();
         Date expireAt = new Date(now.getTime() + expirationTimeInMillis);
@@ -51,5 +73,6 @@ public class JwtUtil {
                 .parseClaimsJws(token)
                 .getBody();
     }
+
 
 }
