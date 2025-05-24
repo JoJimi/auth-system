@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.example.auth_system.domain.department.entity.Department;
 import org.example.auth_system.domain.employee.mapping.EmployeeRoleMapping;
-import org.example.auth_system.domain.role.entity.Role;
+import org.example.auth_system.domain.role.entity.EmployeeRole;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -35,24 +35,24 @@ public class Employee {
     private Set<EmployeeRoleMapping> employeeRoles = new HashSet<>();
 
     // 편의 메서드: Role 추가
-    public void addRole(Role role) {
+    public void addRole(EmployeeRole employeeRole) {
         EmployeeRoleMapping mapping = EmployeeRoleMapping.builder()
                 .employee(this)
-                .role(role)
+                .employeeRole(employeeRole)
                 .build();
         employeeRoles.add(mapping);
-        role.getEmployeeRoles().add(mapping);
+        employeeRole.getEmployeeRoles().add(mapping);
     }
 
     // 편의 메서드: Role 제거
-    public void removeRole(Role role) {
+    public void removeRole(EmployeeRole employeeRole) {
         employeeRoles.removeIf(mapping ->
                 mapping.getEmployee().equals(this) &&
-                        mapping.getRole().equals(role)
+                        mapping.getEmployeeRole().equals(employeeRole)
         );
-        role.getEmployeeRoles().removeIf(mapping ->
+        employeeRole.getEmployeeRoles().removeIf(mapping ->
                 mapping.getEmployee().equals(this) &&
-                        mapping.getRole().equals(role)
+                        mapping.getEmployeeRole().equals(employeeRole)
         );
     }
 
@@ -61,9 +61,9 @@ public class Employee {
             return false;
         }
         return employee.getEmployeeRoles().stream()
-                .map(EmployeeRoleMapping::getRole)
+                .map(EmployeeRoleMapping::getEmployeeRole)
                 .filter(Objects::nonNull)
-                .map(Role::getName)
+                .map(EmployeeRole::getName)
                 .anyMatch("인사팀"::equals);
     }
 }

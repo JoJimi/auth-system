@@ -3,7 +3,7 @@ package org.example.auth_system.domain.employee.mapping;
 import jakarta.persistence.*;
 import lombok.*;
 import org.example.auth_system.domain.employee.entity.Employee;
-import org.example.auth_system.domain.role.entity.Role;
+import org.example.auth_system.domain.role.entity.EmployeeRole;
 
 @Entity
 @Table(name = "employee_role_mapping")
@@ -24,5 +24,5 @@ public class EmployeeRoleMapping {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "role_id", nullable = false)
-    private Role role;
+    private EmployeeRole employeeRole;
 }

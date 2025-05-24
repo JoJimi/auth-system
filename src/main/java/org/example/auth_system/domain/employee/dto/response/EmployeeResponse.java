@@ -14,7 +14,7 @@ public record EmployeeResponse(
         List<Long> roleIds) {
     public static EmployeeResponse from(Employee employee) {
         List<Long> roleIds = employee.getEmployeeRoles().stream()
-                .map(mapping -> mapping.getRole().getId())
+                .map(mapping -> mapping.getEmployeeRole().getId())
                 .collect(Collectors.toList());
 
         return new EmployeeResponse(

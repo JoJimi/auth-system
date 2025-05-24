@@ -6,7 +6,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.example.auth_system.domain.employee.entity.Employee;
 import org.example.auth_system.domain.employee.mapping.EmployeeRoleMapping;
-import org.example.auth_system.domain.role.entity.Role;
+import org.example.auth_system.domain.role.entity.EmployeeRole;
 
 import java.security.Key;
 import java.util.Date;
@@ -31,8 +31,8 @@ public class JwtUtil {
         claims.put(
                 "roles",
                 employee.getEmployeeRoles().stream()
-                        .map(EmployeeRoleMapping::getRole)
-                        .map(Role::getName)
+                        .map(EmployeeRoleMapping::getEmployeeRole)
+                        .map(EmployeeRole::getName)
                         .collect(Collectors.toSet()));
 
         return Jwts.builder()

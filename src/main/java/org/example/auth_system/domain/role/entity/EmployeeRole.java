@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class Role {
+public class EmployeeRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +23,6 @@ public class Role {
     private String name;
 
     @Builder.Default
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "employeeRole", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<EmployeeRoleMapping> employeeRoles = new HashSet<>();
 }
