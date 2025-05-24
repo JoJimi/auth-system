@@ -1,6 +1,8 @@
 package org.example.auth_system.domain.api.dto.response;
 
+import lombok.Getter;
 import org.example.auth_system.domain.api.entity.Api;
+
 public record ApiResponse(
         Long id,
         String method,
@@ -16,4 +18,5 @@ public record ApiResponse(
                 api.getApp().getId()
         );
     }
+
 }

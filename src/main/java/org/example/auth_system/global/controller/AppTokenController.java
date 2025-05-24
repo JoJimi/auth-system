@@ -3,14 +3,13 @@ package org.example.auth_system.global.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.example.auth_system.global.dto.request.ValidateTokenRequest;
 import org.example.auth_system.global.dto.response.AppTokenResponse;
 import org.example.auth_system.global.service.TokenService;
+import org.example.auth_system.global.util.JwtUtil;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,5 +26,13 @@ public class AppTokenController {
         AppTokenResponse response = tokenService.createAppToken(appId);
         return ResponseEntity.ok(response);
     }
+
+    @Operation(description = "토큰 validation")
+    @PostMapping(value = "/validate",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> validateAppToken(ValidateTokenRequest request){
+        return tokenService.validateToken(request);
+    }
+
 
 }

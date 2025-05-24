@@ -1,5 +1,6 @@
 package org.example.auth_system.domain.role.dto.response;
 
+import lombok.Getter;
 import org.example.auth_system.domain.api.dto.response.ApiResponse;
 import org.example.auth_system.domain.role.entity.AppRole;
 
