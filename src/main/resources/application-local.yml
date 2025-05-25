@@ -1,0 +1,16 @@
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    database: mysql
+  datasource:
+    url: jdbc:mysql://localhost:3306/auth_system?useUnicode=true&serverTimezone=Asia/Seoul
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 1234
+
+kakao:
+  client_id: 68d61abcec280fba71c54fc4b62f2390
+  redirect_uri: http://localhost:8080/kakao/callback
