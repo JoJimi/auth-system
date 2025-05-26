@@ -29,3 +29,6 @@ minikube start 혹은 minikube start --driver=docker
 
 6. kubectl get all
 
+7. kubectl apply -f secret.yml
+
+8. kubectl get secret
