@@ -32,3 +32,5 @@ minikube start 혹은 minikube start --driver=docker
 7. kubectl apply -f secret.yml
 
 8. kubectl get secret
+
+9. docker image 만들고 푸쉬하기 (DockerHub)
