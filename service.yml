@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-system
+  namespace: default
+  labels:
+    app: auth-system
+spec:
+  selector:
+    app: auth-system
+  ports:
+    - protocol: TCP
+      port: 8080
+      nodePort: 30090
+  type: NodePort
