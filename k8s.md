@@ -34,5 +34,5 @@ minikube start 혹은 minikube start --driver=docker
 8. kubectl get secret
 
 9. docker image 만들고 푸쉬하기 (DockerHub)
-docker build -t {hub_id}/{repo_name}:0.0
+docker build -t {hub_id}/{repo_name}:0.0 .
 docker push {hub_id}/{repo_name}:0.0
