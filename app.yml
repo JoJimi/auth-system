@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: auth-system
-          image: jimineutron/auth_system:0.0
+          image: jimineutron/auth_system:0.1
           ports:
             - containerPort: 8080
           env:
